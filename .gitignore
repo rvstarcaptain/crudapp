@@ -1,0 +1,9 @@
+venv/
+pip3/
+pip/
+virtualenviroment/
+pipenv/
+virtualenv/
+env/
+flask/
+requirements.txt/
