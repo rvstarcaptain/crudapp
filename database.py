@@ -1,5 +1,5 @@
 import pymysql
-​
+
 mydb = pymysql.connect(
     host="localhost",
     user="root",
@@ -8,7 +8,7 @@ mydb = pymysql.connect(
 )
 # create cursor:
 cur = mydb.cursor()
-​
+
 # create table:
 # t = """
 #     create table if not exists students(
@@ -24,7 +24,7 @@ cur = mydb.cursor()
 #     )
 #     """
 # cur.execute(t)
-​
+    
 # insert sample data in table:
 # query = """
 #         insert into students(student_name,email_id,course,hod_name,year,city,state)

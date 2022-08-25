@@ -2,11 +2,10 @@ from flask import Flask, jsonify, request
 from flask_restplus import Resource, Api, fields
 import pymysql
 from database import mydb, cur
-​
+
 app = Flask(__name__)
-​
 api = Api(app,version="1.0",title="CRUD Operation",description="A Small Crud app where you can create record, delete record, get the record and update the specific record")
-​
+
 # create model for swagger api:
 Student_Model = api.model(
     "Student",
@@ -41,7 +40,7 @@ class Crud(Resource):
             response["success"] = "False"
             response["data"] = "Null"
             return response, 400
-​
+
     @api.expect(Student_Model, validate=True)
     def post(self):
         try:
@@ -78,7 +77,7 @@ class Crud(Resource):
             response["msg"] = "Failed to added student"
             response["success"] = "False"
             return response, 400
-​
+
 @api.route("/specific/<int:id>/")
 class Crud_by_id(Resource):
     def get(self,id):
@@ -95,13 +94,13 @@ class Crud_by_id(Resource):
             response["msg"] = f"Failed to get record on {id} this roll number"
             response["success"] = "False"
             return response, 400
-​
+
     @api.expect(Student_Model, validate=True)
     def put(self,id):
-        try:
+        try: 
             if id in mydb:
                 print("available")
-​
+
             data = request.get_json()
             name = data.get("student_name")
             email = data.get("email_id")
@@ -110,7 +109,7 @@ class Crud_by_id(Resource):
             year = data.get("year")
             city = data.get("city")
             state = data.get("state")
-​
+
             query_update = """
                         update students set
                         student_name = %s,
@@ -134,7 +133,7 @@ class Crud_by_id(Resource):
             response["msg"] = "Record not found on specific id"
             response["success"] = "False"
             return response, 400
-​
+
     def delete(self,id):
         try:
             query = "delete from students where roll_no = %s"
@@ -149,6 +148,6 @@ class Crud_by_id(Resource):
             response["msg"] = "Record not found on specific id"
             response["success"] = "False"
             return response, 400
-​
+
 if __name__ == "__main__":
     app.run(debug=True)
